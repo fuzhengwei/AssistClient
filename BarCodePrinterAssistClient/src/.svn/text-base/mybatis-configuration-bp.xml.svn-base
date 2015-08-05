@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="jdbc" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
+				<property name="url" value="jdbc:sqlserver://localhost:1433; DatabaseName=BARCODEPRINTER_BP" />
+				<property name="username" value="sa" />
+				<property name="password" value="sa" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/icss/bp/bean/BPBatchBeanMapper.xml" />
+		<mapper resource="com/icss/bp/bean/BPOrderInfoBeanMapper.xml" />
+		<mapper resource="com/icss/bp/bean/BPOrderCigInfoBeanMapper.xml" />
+	</mappers>
+</configuration> 

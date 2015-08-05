@@ -1,0 +1,26 @@
+#debug stdout AC dufLog 
+log4j.rootLogger = INFO,AC,Console
+
+#Console
+log4j.appender.Console=org.apache.log4j.ConsoleAppender
+log4j.appender.Console.layout=org.apache.log4j.PatternLayout
+log4j.appender.Console.layout.ConversionPattern=%d [%t] %-5p [%c]  \r\n%m%n
+
+#MyBatis
+log4j.logger.java.sql.ResultSet=INFO
+log4j.logger.org.apache=INFO
+log4j.logger.java.sql.Connection=DEBUG
+log4j.logger.java.sql.Statement=DEBUG
+log4j.logger.java.sql.PreparedStatement=DEBUG 
+
+#
+log4j.appender.AC = org.apache.log4j.DailyRollingFileAppender
+log4j.appender.AC.File = log/AssistClient.log
+log4j.appender.AC.Append = true
+log4j.appender.AC.Threshold = INFO
+log4j.appender.AC.layout = org.apache.log4j.PatternLayout
+log4j.appender.AC.layout.ConversionPattern =%-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] - [ %p ]  \r\n%m%n 
+
+log4j.appender.dufLog.MaxFileSize=5MB
+log4j.appender.dufLog.layout=org.apache.log4j.PatternLayout
+log4j.appender.dufLog.layout.ConversionPattern=%-d{yyyy-MM-dd HH:mm:ss}  [ %t:%r ] - [ %p ]  %m%n 

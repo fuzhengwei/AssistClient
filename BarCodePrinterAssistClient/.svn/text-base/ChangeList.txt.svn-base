@@ -1,0 +1,86 @@
+===========
+2015年4月16日 PM
+===========
+工业打码新增字段
+
+计划表：ARRANGE
+
+-- 基础数据【0.未发送、1.已发送】
+ALTER TABLE [dbo].[ARRANGE] ADD [OI_BASE_FEED_STATE] [char](2) NULL DETAULT 0
+
+UPDATE [dbo].[ARRANGE] SET [OI_BASE_FEED_STATE] = 0;
+
+
+条码表：CIGINFO
+
+-- 基础数据【0.未发送-全部发送、1.已发送-停止发送】
+ALTER TABLE [dbo].[ARRANGE] ADD [OI_BASE_FEED_STATE] [char](1) NULL DEFAULT 0
+
+-- 基础数据【0.未发送-全部发送、1.已发送-停止发送、2.待更新-部分发送】
+ALTER TABLE [dbo].[CIGINFO] ADD [OI_BASE_FEED_STATE] [char](1) NULL DEFAULT 0
+-- 打码状态【0.未发送、1.已发送】
+ALTER TABLE [dbo].[CIGINFO] ADD [OI_CODE_FEED_STATE] [char](1) NULL DEFAULT 0
+-- 反馈状态【0.未发送、1.已发送】
+ALTER TABLE [dbo].[CIGINFO] ADD [OI_BACK_FEED_STATE] [char](1) NULL DEFAULT 0
+
+
+UPDATE [dbo].[ARRANGE] SET [OI_BASE_FEED_STATE] = 0;
+UPDATE [dbo].[CIGINFO] SET [OI_BASE_FEED_STATE] = 0;
+UPDATE [dbo].[CIGINFO] SET [OI_CODE_FEED_STATE] = 0;
+UPDATE [dbo].[CIGINFO] SET [OI_BACK_FEED_STATE] = 0;
+
+======================================================
+
+===========
+2015年4月15日 PM
+===========
+
+bp 商业打码【条码打印】
+
+pp 工业打码【件烟贴标】
+
+======================================================
+
+===========
+2015年4月15日 PM
+===========
+
+测试辅助sql
+
+-- 基础数据
+select * from BP_ORDER_INFO where OI_BASE_FEED_STATE = 1
+select COUNT(*) from BP_ORDER_INFO where OI_BASE_FEED_STATE = 1
+
+-- 打码状态
+select COUNT(*) from BP_ORDER_INFO where OI_CODE_FEED_STATE = 1   
+SELECT * FROM BP_ORDER_INFO where OI_CODE_FEED_STATE  =1
+
+-- 基础数据 & 打码数据 修改为未发送
+update BP_ORDER_INFO set OI_BASE_FEED_STATE = 0
+update BP_ORDER_INFO set OI_CODE_FEED_STATE = 0
+
+-- 基础数据 & 打码数据 修改为已发送
+update BP_ORDER_INFO set OI_BASE_FEED_STATE = 1
+update BP_ORDER_INFO set OI_CODE_FEED_STATE = 1
+
+
+select COUNT(*) from BP_ORDER_INFO where OI_BASE_FEED_STATE = 0
+select COUNT(*) from BP_ORDER_INFO where OI_BASE_FEED_STATE = 1
+select COUNT(*) from BP_ORDER_INFO where OI_CODE_FEED_STATE = 0  
+select COUNT(*) from BP_ORDER_INFO where OI_CODE_FEED_STATE = 1   
+======================================================
+
+===========
+2015年4月15日 AM
+===========
+数据库表字段更新：
+
+ALTER TABLE [dbo].[BP_ORDER_INFO] ADD [OI_IN_FEED_STATE] [char](2) NULL DETAULT 0
+ALTER TABLE [dbo].[BP_ORDER_INFO] ADD [OI_BASE_FEED_STATE] [char](2) NULL DETAULT 0
+ALTER TABLE [dbo].[BP_ORDER_INFO] ADD [OI_CODE_FEED_STATE] [char](2) NULL DETAULT 0
+
+UPDATE [dbo].[BP_ORDER_INFO] SET [OI_IN_FEED_STATE] = 0;
+UPDATE [dbo].[OI_BASE_FEED_STATE] SET [OI_BASE_FEED_STATE] = 0;
+UPDATE [dbo].[OI_BASE_FEED_STATE] SET [OI_CODE_FEED_STATE] = 0;
+
+=======================================================

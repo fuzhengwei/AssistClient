@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/mybatis-3.2.7.jar"/>
+	<classpathentry kind="lib" path="lib/netty-all-5.0.0.Alpha1.jar" sourcepath="lib/netty-all-5.0.0.Alpha1.jar"/>
+	<classpathentry kind="lib" path="lib/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-core-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-annotations-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/jackson-databind-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/axis/activation.jar"/>
+	<classpathentry kind="lib" path="lib/axis/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="lib/axis/asm.jar"/>
+	<classpathentry kind="lib" path="lib/axis/axis-ant.jar"/>
+	<classpathentry kind="lib" path="lib/axis/axis.jar"/>
+	<classpathentry kind="lib" path="lib/axis/commons-discovery-0.2.jar"/>
+	<classpathentry kind="lib" path="lib/axis/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/axis/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/axis/jaxrpc.jar"/>
+	<classpathentry kind="lib" path="lib/axis/mail.jar"/>
+	<classpathentry kind="lib" path="lib/axis/saaj.jar"/>
+	<classpathentry kind="lib" path="lib/axis/wsdl4j-1.5.1.jar"/>
+	<classpathentry kind="lib" path="lib/axis/xerces-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/axis/xml-apis.jar"/>
+	<classpathentry kind="lib" path="lib/axis/XmlSchema-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/axis/log4j-1.2.8.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

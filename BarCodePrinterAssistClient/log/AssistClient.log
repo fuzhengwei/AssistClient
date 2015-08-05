@@ -1,0 +1,29 @@
+2015-07-30 16:02:29  [ main:0 ] - [ INFO ]  
+操作叙述：工业打码业务控制初始化完成
+执行某类：PPBusinessControlImpl
+执行方法：构造函数
+执行结果：初始化完成
+错误信息：null
+
+ 2015-07-30 16:05:23  [ main:0 ] - [ INFO ]  
+操作叙述：工业打码业务控制初始化完成
+执行某类：PPBusinessControlImpl
+执行方法：构造函数
+执行结果：初始化完成
+错误信息：null
+
+ 2015-07-30 16:05:43  [ pool-1-thread-4:20066 ] - [ WARN ]  
+操作叙述：C2S_CIGINFOBACKINFO 客户端向服务端传递_条码发送信息
+执行某类：CodePPCigInfoDateExtractionService
+执行方法：Thread run
+执行结果：jsonStr 长度：4798
+错误信息：null
+
+ 2015-07-30 16:05:44  [ nioEventLoopGroup-2-1:21029 ] - [ INFO ]  
+操作叙述：S2C_CIGINFOBACKFEED 服务端向客户端传递_条码发送信息反馈
+执行某类：IAssistClinetPPService
+执行方法：doHandleMsg
+执行结果：更新数据数量：25
+错误信息：null
+
+ 

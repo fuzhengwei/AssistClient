@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icss.bp.dao.BPOrderInfoDao" >
+  <resultMap id="BaseResultMap" type="com.icss.bp.bean.BPOrderInfoBean" >
+    <id column="OI_ID" property="oiId" jdbcType="BIGINT" />
+    <result column="OI_UUID" property="oiUuid" jdbcType="VARCHAR" />
+    <result column="OI_B_CODE" property="oiBCode" jdbcType="VARCHAR" />
+    <result column="OI_B_TYPE" property="oiBType" jdbcType="CHAR" />
+    <result column="OI_ISCHANGE_SLINE" property="oiIschangeSline" jdbcType="CHAR" />
+    <result column="OI_DL_CODE" property="oiDlCode" jdbcType="VARCHAR" />
+    <result column="OI_DL_NAME" property="oiDlName" jdbcType="NVARCHAR" />
+    <result column="OI_SLINE_CODE" property="oiSlineCode" jdbcType="VARCHAR" />
+    <result column="OI_SLINE_NAME" property="oiSlineName" jdbcType="VARCHAR" />
+    <result column="OI_SEQUENCE" property="oiSequence" jdbcType="INTEGER" />
+    <result column="OI_CODE" property="oiCode" jdbcType="VARCHAR" />
+    <result column="OI_RETAILER_CODE" property="oiRetailerCode" jdbcType="CHAR" />
+    <result column="OI_RETAILER_NAME" property="oiRetailerName" jdbcType="NVARCHAR" />
+    <result column="OI_DATE" property="oiDate" jdbcType="TIMESTAMP" />
+    <result column="OI_SORT_DATE" property="oiSortDate" jdbcType="TIMESTAMP" />
+    <result column="OI_CIG_FLAG" property="oiCigFlag" jdbcType="CHAR" />
+    <result column="OI_ALL_NUM" property="oiAllNum" jdbcType="INTEGER" />
+    <result column="OI_NORMAL_NUM" property="oiNormalNum" jdbcType="INTEGER" />
+    <result column="OI_CUSTOM_INFO" property="oiCustomInfo" jdbcType="CHAR" />
+    <result column="OI_CHECK_NUM" property="oiCheckNum" jdbcType="INTEGER" />
+    <result column="OI_SEND_NUM" property="oiSendNum" jdbcType="INTEGER" />
+    <result column="OI_PRINT_NUM" property="oiPrintNum" jdbcType="INTEGER" />
+    <result column="OI_RESEL_ORDER_NUM" property="oiReselOrderNum" jdbcType="INTEGER" />
+    <result column="OI_START_TIME" property="oiStartTime" jdbcType="TIMESTAMP" />
+    <result column="OI_END_TIME" property="oiEndTime" jdbcType="TIMESTAMP" />
+    <result column="OI_STATE" property="oiState" jdbcType="VARCHAR" />
+    <result column="OI_SEND_STATE" property="oiSendState" jdbcType="CHAR" />
+    <result column="OI_SELF_UPDATE_TIME" property="oiSelfUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="OI_SUB_UPDATE_TIME" property="oiSubUpdateTime" jdbcType="TIMESTAMP" />
+    <result column="OI_B_UUID" property="oiBUuid" jdbcType="VARCHAR" />
+    <result column="OI_DL_UUID" property="oiDlUuid" jdbcType="VARCHAR" />
+    <result column="OI_SELF_SEQUENCE" property="oiSelfSequence" jdbcType="INTEGER" />
+    <result column="OI_ALL_NUM1" property="oiAllNum1" jdbcType="DECIMAL" />
+    <result column="OI_SELF_BATCH_SEQUENCE" property="oiSelfBatchSequence" jdbcType="INTEGER" />
+    <result column="OI_TOTAL_SEQUENCE" property="oiTotalSequence" jdbcType="BIGINT" />
+    <result column="OI_ILLEGALITY_NUM" property="oiIllegalityNum" jdbcType="INTEGER" />
+    <result column="OI_SECOND_NUM" property="oiSecondNum" jdbcType="INTEGER" />
+    <result column="OI_COMMERCE_CODE" property="oiCommerceCode" jdbcType="VARCHAR" />
+    <result column="OI_COMMERCE_NAME" property="oiCommerceName" jdbcType="VARCHAR" />
+    <result column="OI_LOCAL_START_TIME" property="oiLocalStartTime" jdbcType="TIMESTAMP" />
+    <result column="OI_STANDARD_START_TIME" property="oiStandardStartTime" jdbcType="TIMESTAMP" />
+    <result column="OI_MONITOR_STATUS" property="oiMonitorStatus" jdbcType="VARCHAR" />
+    <result column="OI_TIME_MONITOR_STATUS" property="oiTimeMonitorStatus" jdbcType="VARCHAR" />
+    <result column="OI_STANDARD_TIME_TYPE" property="oiStandardTimeType" jdbcType="VARCHAR" />
+    <result column="OI_IN_FEED_STATE" property="oiInFeedState" jdbcType="CHAR" />
+    <!-- 批次信息 -->
+    <association property="bPBatchBean" javaType="com.icss.bp.bean.BPBatchBean">
+    	<id column="B_ID" property="bId" jdbcType="BIGINT" />
+		<result column="B_UUID" property="bUuid" jdbcType="VARCHAR" />
+		<result column="B_SORT_DATE" property="bSortDate" jdbcType="TIMESTAMP" />
+		<result column="B_CODE" property="bCode" jdbcType="VARCHAR" />
+		<result column="B_SEQUENCE" property="bSequence" jdbcType="INTEGER" />
+		<result column="B_TYPE" property="bType" jdbcType="CHAR" />
+		<result column="B_IS_CHANGE_SLINE" property="bIsChangeSline" jdbcType="CHAR" />
+		<result column="B_SLINE_CODE" property="bSlineCode" jdbcType="VARCHAR" />
+		<result column="B_ORDER_NUM" property="bOrderNum" jdbcType="INTEGER" />
+		<result column="B_SHOULD_SEND_NUM" property="bShouldSendNum" jdbcType="INTEGER" />
+		<result column="B_THIS_SEND_NUM" property="bThisSendNum" jdbcType="INTEGER" />
+		<result column="B_ALL_RECV_NUM" property="bAllRecvNum" jdbcType="INTEGER" />
+		<result column="B_PRINT_NUM" property="bPrintNum" jdbcType="INTEGER" />
+		<result column="B_START_TIME" property="bStartTime" jdbcType="TIMESTAMP" />
+		<result column="B_END_TIME" property="bEndTime" jdbcType="TIMESTAMP" />
+		<result column="B_STATE" property="bState" jdbcType="VARCHAR" />
+		<result column="B_SEND_STATE" property="bSendState" jdbcType="CHAR" />
+		<result column="B_SELF_UPDATE_TIME" property="bSelfUpdateTime" jdbcType="TIMESTAMP"/>
+		<result column="B_SUB_UPDATE_TIME" property="bSubUpdateTime" jdbcType="TIMESTAMP"/>
+    </association>
+    <!-- 线路信息 -->
+    <association property="bPDistLineBean" javaType="com.icss.bp.bean.BPDistLineBean">
+    	<id column="DL_ID" property="dlId" jdbcType="BIGINT" />
+	    <result column="DL_UUID" property="dlUuid" jdbcType="VARCHAR" />
+	    <result column="DL_SORT_DATE" property="dlSortDate" jdbcType="TIMESTAMP" />
+	    <result column="DL_B_UUID" property="dlBUuid" jdbcType="VARCHAR" />
+	    <result column="DL_B_CODE" property="dlBCode" jdbcType="VARCHAR" />
+	    <result column="DL_B_TYPE" property="dlBType" jdbcType="CHAR" />
+	    <result column="DL_CODE" property="dlCode" jdbcType="VARCHAR" />
+	    <result column="DL_NAME" property="dlName" jdbcType="NVARCHAR" />
+	    <result column="DL_SEQUENCE" property="dlSequence" jdbcType="INTEGER" />
+	    <result column="DL_ORDER_NUM" property="dlOrderNum" jdbcType="INTEGER" />
+	    <result column="DL_PRINT_NUM" property="dlPrintNum" jdbcType="INTEGER" />
+	    <result column="DL_START_TIME" property="dlStartTime" jdbcType="TIMESTAMP" />
+	    <result column="DL_END_TIME" property="dlEndTime" jdbcType="TIMESTAMP" />
+	    <result column="DL_STATE" property="dlState" jdbcType="VARCHAR" />
+	    <result column="DL_SEND_STATE" property="dlSendState" jdbcType="CHAR" />
+	    <result column="DL_SELF_UPDATE_TIME" property="dlSelfUpdateTime" jdbcType="TIMESTAMP" />
+	    <result column="DL_SUB_UPDATE_TIME" property="dlSubUpdateTime" jdbcType="TIMESTAMP" />
+    </association>
+    <!-- 订单明细 -->
+    <collection property="bpOrderCigInfoList" ofType="com.icss.bp.bean.BPOrderCigInfoBean">
+    	<id column="OCI_ID" property="ociId" jdbcType="BIGINT" />
+	    <result column="OCI_UUID" property="ociUuid" jdbcType="VARCHAR" />
+	    <result column="OCI_CIG_BRAND" property="ociCigBrand" jdbcType="VARCHAR" />
+	    <result column="OCI_CIG_TRADEMARK" property="ociCigTrademark" jdbcType="VARCHAR" />
+	    <result column="OCI_IS_ABNORMAL" property="ociIsAbnormal" jdbcType="CHAR" />
+	    <result column="OCI_IS_PRINT" property="ociIsPrint" jdbcType="CHAR" />
+	    <result column="OCI_ORDER_NUM" property="ociOrderNum" jdbcType="INTEGER" />
+	    <result column="OCI_ORDER_NUM1" property="ociOrderNum1" jdbcType="DECIMAL" />
+	    <result column="OCI_ACTUAL_PRICE" property="ociActualPrice" jdbcType="DECIMAL" />
+	    <result column="OCI_STANDERD_PRICE" property="ociStanderdPrice" jdbcType="DECIMAL" />
+	    <result column="OCI_LOCK_STEP" property="ociLockStep" jdbcType="CHAR" />
+	    <result column="OCI_LOCK_STATUS" property="ociLockStatus" jdbcType="CHAR" />
+	    <result column="OCI_CUSTOM_INFO" property="ociCustomInfo" jdbcType="CHAR" />
+    </collection>
+    <!-- 订单条码 -->
+    <collection property="bpOrderBarcodeList" ofType="com.icss.bp.bean.BPOrderBarcodeBean">
+    	<id column="OB_ID" property="obId" jdbcType="BIGINT" />
+	    <result column="OB_UUID" property="obUuid" jdbcType="VARCHAR" />
+	    <result column="OB_SEQUENCE" property="obSequence" jdbcType="INTEGER" />
+	    <result column="OB_SORT_DATE" property="obSortDate" jdbcType="TIMESTAMP" />
+	    <result column="OB_CIG_DERIVE_CODE" property="obCigDeriveCode" jdbcType="CHAR" />
+	    <result column="OB_CUSTOM_INFO" property="obCustomInfo" jdbcType="CHAR" />
+	    <result column="OB_RETAILER_CODE" property="obRetailerCode" jdbcType="CHAR" />
+	    <result column="OB_BCIG_BARCODE" property="obBcigBarcode" jdbcType="CHAR" />
+	    <result column="OB_TOTAL_SEQUENCE" property="obTotalSequence" jdbcType="BIGINT" />
+	    <result column="OB_LOCK_STEP" property="obLockStep" jdbcType="CHAR" />
+	    <result column="OB_LOCK_STATUS" property="obLockStatus" jdbcType="CHAR" />
+    </collection>
+    
+  </resultMap>
+ 	 
+  <!-- 打码订单信息 -->
+  <resultMap id="OrderCodeResultMap" type="com.icss.bp.bean.VOrderCodeStateBean">
+  	<result column="OI_UUID" property="oiUuid" jdbcType="VARCHAR" />
+  	<result column="OI_PRINT_NUM" property="oiPrintNum" jdbcType="INTEGER" />
+  	<result column="OI_RESEL_ORDER_NUM" property="oiReselOrderNum" jdbcType="INTEGER" />
+  	<result column="OI_START_TIME" property="oiStartTime" jdbcType="TIMESTAMP" />
+    <result column="OI_END_TIME" property="oiEndTime" jdbcType="TIMESTAMP" />
+    <result column="OI_STATE" property="oiState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询订单集合信息 -->
+  <select id="selectBaseOrderInfoList" resultMap="BaseResultMap">
+  	SELECT A.OI_ID, 
+  	    A.OI_UUID, 
+  	    A.OI_B_CODE, 
+  		A.OI_B_TYPE, 
+  		A.OI_ISCHANGE_SLINE, 
+  		A.OI_DL_CODE, 
+  		A.OI_DL_NAME, 
+		A.OI_SLINE_CODE, 
+  		A.OI_SLINE_NAME, 
+  		A.OI_SEQUENCE, 
+  		A.OI_CODE, 
+  		A.OI_RETAILER_CODE, 
+  		A.OI_RETAILER_NAME, 
+		A.OI_DATE, 
+  		A.OI_SORT_DATE, 
+  		A.OI_CIG_FLAG, 
+  		A.OI_ALL_NUM, 
+  		A.OI_NORMAL_NUM, 
+  		A.OI_CUSTOM_INFO, 
+  		A.OI_CHECK_NUM, 
+		A.OI_SEND_NUM, 
+  		A.OI_PRINT_NUM, 
+  		A.OI_RESEL_ORDER_NUM, 
+  		A.OI_START_TIME, 
+  		A.OI_END_TIME, 
+  		A.OI_STATE, 
+		A.OI_SEND_STATE, 
+  		A.OI_SELF_UPDATE_TIME, 
+  		A.OI_SUB_UPDATE_TIME, 
+  		A.OI_B_UUID, 
+  		A.OI_DL_UUID, 
+  		A.OI_SELF_SEQUENCE, 
+		A.OI_ALL_NUM1, 
+  		A.OI_SELF_BATCH_SEQUENCE, 
+  		A.OI_TOTAL_SEQUENCE, 
+  		A.OI_ILLEGALITY_NUM, 
+  		A.OI_SECOND_NUM, 
+		A.OI_COMMERCE_CODE, 
+  		A.OI_COMMERCE_NAME, 
+  		A.OI_LOCAL_START_TIME, 
+  		A.OI_STANDARD_START_TIME, 
+		A.OI_MONITOR_STATUS, 
+  		A.OI_TIME_MONITOR_STATUS, 
+  		A.OI_STANDARD_TIME_TYPE, 
+  		A.OI_IN_FEED_STATE,
+	    B.OCI_ID, 
+		B.OCI_UUID, 
+  		B.OCI_CIG_BRAND, 
+  		B.OCI_CIG_TRADEMARK, 
+  		B.OCI_IS_ABNORMAL, 
+  		B.OCI_IS_PRINT, 
+		B.OCI_ORDER_NUM, 
+  		B.OCI_ORDER_NUM1, 
+  		B.OCI_ACTUAL_PRICE, 
+  		B.OCI_STANDERD_PRICE, 
+  		B.OCI_LOCK_STEP, 
+		B.OCI_LOCK_STATUS, 
+  		B.OCI_CUSTOM_INFO,
+	  	C.OB_ID, 
+	  	C.OB_UUID, 
+	  	C.OB_SEQUENCE, 
+	  	C.OB_SORT_DATE, 
+	  	C.OB_CIG_DERIVE_CODE, 
+	  	C.OB_CUSTOM_INFO, 
+	  	C.OB_RETAILER_CODE, 
+	    C.OB_BCIG_BARCODE, 
+	  	C.OB_TOTAL_SEQUENCE, 
+	  	C.OB_LOCK_STEP, 
+	  	C.OB_LOCK_STATUS,
+	  	D.B_ID, 
+		D.B_UUID, 
+		D.B_SORT_DATE, 
+		D.B_CODE, 
+		D.B_SEQUENCE, 
+		D.B_TYPE, 
+		D.B_IS_CHANGE_SLINE, 
+		D.B_SLINE_CODE,
+		D.B_ORDER_NUM, 
+		D.B_SHOULD_SEND_NUM, 
+		D.B_THIS_SEND_NUM, 
+		D.B_ALL_RECV_NUM, 
+		D.B_PRINT_NUM, 
+		D.B_START_TIME,
+		D.B_END_TIME, 
+		D.B_STATE, 
+		D.B_SEND_STATE, 
+		D.B_SELF_UPDATE_TIME, 
+		D.B_SUB_UPDATE_TIME,
+	  	E.DL_ID, 
+  		E.DL_UUID, 
+  		E.DL_SORT_DATE, 
+  		E.DL_B_UUID, 
+  		E.DL_B_CODE, 
+  		E.DL_B_TYPE, 
+  		E.DL_CODE, 
+  		E.DL_NAME, 
+		E.DL_SEQUENCE, 
+  		E.DL_ORDER_NUM, 
+  		E.DL_PRINT_NUM, 
+  		E.DL_START_TIME, 
+  		E.DL_END_TIME, 
+  		E.DL_STATE, 
+  		E.DL_SEND_STATE, 
+		E.DL_SELF_UPDATE_TIME, 
+  		E.DL_SUB_UPDATE_TIME
+		FROM 
+			(SELECT TOP 10 A.* FROM BP_ORDER_INFO A WHERE A.OI_BASE_FEED_STATE = 0 ORDER BY A.OI_TOTAL_SEQUENCE ,A.OI_STATE DESC) A
+			 JOIN BP_ORDER_CIG_INFO B ON A.OI_UUID = B.OCI_UUID 
+			 JOIN BP_ORDER_BARCODE C ON A.OI_UUID = C.OB_UUID
+			 JOIN BP_BATCH D ON A.OI_B_UUID = D.B_UUID
+			 JOIN BP_DIST_LINE E ON A.OI_DL_UUID = E.DL_UUID
+  </select>
+  
+  <!-- 查询已打码订单 -->
+  <!-- 今天的、打码完成的、未发送过的、基础信息已经发送完成的 -->
+  <select id="selectCodeOrderInfoList" resultMap="OrderCodeResultMap">
+  	SELECT TOP 10
+		A.OI_UUID, 
+		A.OI_PRINT_NUM,
+		A.OI_RESEL_ORDER_NUM,
+		A.OI_START_TIME, 
+  		A.OI_END_TIME,
+  		A.OI_STATE
+	FROM BP_ORDER_INFO A
+	WHERE     A.OI_BASE_FEED_STATE = 1
+  		  AND A.OI_CODE_FEED_STATE = 0 
+  	      AND A.OI_STATE = 3 
+  </select>
+  
+  <!-- UPDATE OI_BASE_FEED_STATE -->
+  <update id="updateBaseFeedStateByOrderUUID" parameterType="java.util.List">
+  	UPDATE BP_ORDER_INFO SET OI_BASE_FEED_STATE = 1 WHERE 
+  	<foreach collection="list" item="item" index="index" open=" " close=" " separator=" OR ">
+  		OI_UUID = #{item.id,jdbcType=VARCHAR}  
+    </foreach>
+  </update>
+  
+  <!-- UPDATE OI_CODE_FEED_STATE -->
+  <update id="updateCodeFeedStateByOrderUUID" parameterType="java.util.List">
+  	UPDATE BP_ORDER_INFO SET OI_CODE_FEED_STATE = 1 WHERE 
+  	<foreach collection="list" item="item" index="index" open=" " close=" " separator=" OR ">
+  		OI_UUID = #{item.id,jdbcType=VARCHAR}
+  	</foreach>
+  </update>
+  
+</mapper>

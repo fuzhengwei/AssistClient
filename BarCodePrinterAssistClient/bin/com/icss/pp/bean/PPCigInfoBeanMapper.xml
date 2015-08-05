@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icss.pp.dao.PPCigInfoDao" >
+  <resultMap id="BaseResultMap" type="com.icss.pp.bean.PPCigInfoBean" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PRINTERID" property="printerid" jdbcType="VARCHAR" />
+    <result column="BALUUID" property="baluuid" jdbcType="VARCHAR" />
+    <result column="CIGBRAND" property="cigbrand" jdbcType="CHAR" />
+    <result column="CIGBRANDCODE" property="cigbrandcode" jdbcType="CHAR" />
+    <result column="FACTCODE" property="factcode" jdbcType="CHAR" />
+    <result column="PRODUCEDATE" property="producedate" jdbcType="TIMESTAMP" />
+    <result column="NATURALDATE" property="naturaldate" jdbcType="TIMESTAMP" />
+    <result column="TRADETYPE" property="tradetype" jdbcType="SMALLINT" />
+    <result column="SERIALNUM" property="serialnum" jdbcType="CHAR" />
+    <result column="PLANPRODUCEDATE" property="planproducedate" jdbcType="TIMESTAMP" />
+    <result column="BARCODEFLAG" property="barcodeflag" jdbcType="CHAR" />
+    <result column="PRINTSTATUS" property="printstatus" jdbcType="SMALLINT" />
+    <result column="SENDBACKFLAG" property="sendbackflag" jdbcType="SMALLINT" />
+    <result column="SCANSTATE" property="scanstate" jdbcType="SMALLINT" />
+    <result column="PRODUCTINFO" property="productinfo" jdbcType="CHAR" />
+    <result column="OI_CODE_FEED_STATE" property="oiCodeFeedState" jdbcType="CHAR" />
+    <result column="OI_BACK_FEED_STATE" property="oiBackFeedState" jdbcType="CHAR" />
+    <result column="OI_BASE_FEED_STATE" property="oiBaseFeedState" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BALUUID, CIGBRAND, FACTCODE, PRODUCEDATE, NATURALDATE, TRADETYPE, SERIALNUM, 
+    PLANPRODUCEDATE, BARCODEFLAG, PRINTSTATUS, SENDBACKFLAG, SCANSTATE, PRODUCTINFO, 
+    OI_CODE_FEED_STATE, OI_BACK_FEED_STATE, OI_BASE_FEED_STATE
+  </sql>
+  <!--BasePPCigInfoDateExtractionService-->
+  <!-- 抽取条码基础数据 -->
+  <select id="selectCigInfoList" resultMap="BaseResultMap">
+  	SELECT TOP 25
+  	        C.PRINTERID,
+			A.ID, 
+			A.BALUUID, 
+			A.CIGBRAND AS CIGBRANDCODE, 
+			B.CIGBRAND AS CIGBRAND,
+			A.FACTCODE, 
+			A.PRODUCEDATE, 
+			A.NATURALDATE, 
+			A.TRADETYPE, 
+		    A.PLANPRODUCEDATE, 
+		    A.BARCODEFLAG,
+  	 		A.SERIALNUM, 
+		    A.PRINTSTATUS, 
+		    A.SENDBACKFLAG, 
+		    A.SCANSTATE, 
+		    A.PRODUCTINFO, 
+		    A.OI_CODE_FEED_STATE, 
+		    A.OI_BACK_FEED_STATE, 
+		    A.OI_BASE_FEED_STATE
+	   FROM CIGINFO A JOIN (SELECT [CIGBRANDCODE],[CIGBRAND] FROM [ARRANGE] GROUP BY [CIGBRANDCODE],[CIGBRAND]) B ON A.CIGBRAND = B.CIGBRANDCODE,
+  	       (SELECT TOP 1 PRINTERID FROM PARAMETER ORDER BY INSTALLTIME DESC) C
+  	   WHERE OI_BASE_FEED_STATE = 0
+  	   ORDER BY A.ID ASC
+  </select>
+  <!-- 抽取条码状态数据计划结转 -->
+  <select id="selectCigInfoBaseStateList" resultMap="BaseResultMap">
+  	SELECT TOP 25
+  			C.PRINTERID,
+			ID, 
+			BALUUID, 
+		    OI_BASE_FEED_STATE
+	   FROM CIGINFO,
+  	       (SELECT TOP 1 PRINTERID FROM PARAMETER ORDER BY INSTALLTIME DESC) C
+  	   WHERE OI_BASE_FEED_STATE = 2
+  	   ORDER BY ID ASC
+  </select>
+  
+  <!--CodePPCigInfoDateExtractionService-->
+  <!-- 抽取条码打码数据 [基础数据已发送的，未给服务端发反馈的，已经打码的]-->
+  <select id="selectCigInfoCodeStateList" resultMap="BaseResultMap">
+  	SELECT TOP 25
+  			C.PRINTERID,
+			ID, 
+			BALUUID, 
+  			PRINTSTATUS,
+		    OI_BASE_FEED_STATE
+	   FROM CIGINFO,
+  	        (SELECT TOP 1 PRINTERID FROM PARAMETER ORDER BY INSTALLTIME DESC) C
+  	   WHERE OI_BASE_FEED_STATE != 0
+  	         AND OI_CODE_FEED_STATE = 0
+  	         AND PRINTSTATUS != 0
+  	   ORDER BY ID ASC
+  </select>
+  
+  <!-- 抽取条码反馈数据[基础数据已发送的，未给服务端发送反馈的，已经向质量追溯平台回传的] -->
+  <select id="selectCigInfoBackStateList" resultMap="BaseResultMap">
+  	SELECT TOP 25
+  			C.PRINTERID,
+			ID, 
+			BALUUID, 
+  			SENDBACKFLAG,
+		    OI_BASE_FEED_STATE
+	   FROM CIGINFO,
+  			(SELECT TOP 1 PRINTERID FROM PARAMETER ORDER BY INSTALLTIME DESC) C
+  	   WHERE OI_BASE_FEED_STATE != 0
+  			 AND OI_BACK_FEED_STATE = 0
+  			 AND SENDBACKFLAG = 2
+  	   ORDER BY ID ASC
+  </select>
+  <!-- 更新基础数据发送状态为2 -->
+  <update id="updateCigInfoBaseFeedState" parameterType="java.lang.String" >
+    UPDATE CIGINFO SET OI_BASE_FEED_STATE = 2
+    WHERE BALUUID = #{baluuid} AND OI_BASE_FEED_STATE = 1
+  </update>
+  
+  <!-- 更新基础数据发送状态为1 -->
+  <update id="updateCigInfoBaseStateListById" parameterType="java.util.List">
+  	UPDATE CIGINFO SET OI_BASE_FEED_STATE = 1 WHERE 
+  	<foreach collection="list" item="item" index="index" open=" " close=" " separator=" OR ">
+  		ID = #{item.id} 
+  	</foreach>
+  </update>
+  <!-- 更新打码状态数据发送状态为1 -->
+  <update id="updateCigInfoCodeStateListById" parameterType="java.util.List">
+  	UPDATE CIGINFO SET OI_CODE_FEED_STATE = 1 WHERE 
+  	<foreach collection="list" item="item" index="index" open=" " close=" " separator=" OR ">
+  	 ID = #{item.id}
+  	</foreach>
+  </update>
+  <!-- 更新回送状态数据发送状态为1 -->
+  <update id="updateCigInfoBackStateListById" parameterType="java.util.List">
+  	UPDATE CIGINFO SET OI_BACK_FEED_STATE = 1 WHERE 
+  	<foreach collection="list" item="item" index="index" open=" " close=" " separator=" OR ">
+  		ID = #{item.id}
+  	</foreach>
+  </update>
+</mapper>

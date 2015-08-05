@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.icss.pp.dao.PPArrangeDao" >
+  <resultMap id="BaseResultMap" type="com.icss.pp.bean.PPArrangeBean" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="PLANNO" property="planno" jdbcType="INTEGER" />
+    <result column="PRINTERID" property="printerid" jdbcType="VARCHAR" />
+    <result column="ARRANGEFLAG" property="arrangeflag" jdbcType="CHAR" />
+    <result column="ARRANGEUUID" property="arrangeuuid" jdbcType="VARCHAR" />
+    <result column="BALUUID" property="baluuid" jdbcType="VARCHAR" />
+    <result column="BALUUID_ORIGINAL" property="baluuidOriginal" jdbcType="VARCHAR" />
+    <result column="BARRANGEDATE" property="barrangedate" jdbcType="TIMESTAMP" />
+    <result column="PRODUCEDATE" property="producedate" jdbcType="TIMESTAMP" />
+    <result column="CIGBRANDCODE" property="cigbrandcode" jdbcType="CHAR" />
+    <result column="CIGBRAND" property="cigbrand" jdbcType="VARCHAR" />
+    <result column="TRADETYPE" property="tradetype" jdbcType="INTEGER" />
+    <result column="CLASSCODE" property="classcode" jdbcType="VARCHAR" />
+    <result column="CLASSCODE_ORIGINAL" property="classcodeOriginal" jdbcType="VARCHAR" />
+    <result column="ARRANGENUM" property="arrangenum" jdbcType="INTEGER" />
+    <result column="DOWNNUM" property="downnum" jdbcType="INTEGER" />
+    <result column="PRINTNUM" property="printnum" jdbcType="INTEGER" />
+    <result column="APPLYNUM" property="applynum" jdbcType="INTEGER" />
+    <result column="INITTIME" property="inittime" jdbcType="TIMESTAMP" />
+    <result column="STARTTIME" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="ENDTIME" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="PLANFLAG" property="planflag" jdbcType="SMALLINT" />
+    <result column="PLANFINISHFLAG" property="planfinishflag" jdbcType="SMALLINT" />
+    <result column="SENDBACKFLAG" property="sendbackflag" jdbcType="BIT" />
+    <result column="CONFIRMFLAG" property="confirmflag" jdbcType="SMALLINT" />
+    <result column="ARRANGETYPE" property="arrangetype" jdbcType="SMALLINT" />
+    <result column="WORKSHOPCODE" property="workshopcode" jdbcType="VARCHAR" />
+    <result column="WORKSHOPNAME" property="workshopname" jdbcType="VARCHAR" />
+    <result column="CONTRACT_NO" property="contractNo" jdbcType="VARCHAR" />
+    <result column="SEND_CODE" property="sendCode" jdbcType="VARCHAR" />
+    <result column="SEND_NAME" property="sendName" jdbcType="VARCHAR" />
+    <result column="IN_PNUM" property="inPnum" jdbcType="INTEGER" />
+    <result column="NOT_RECOGNISE_PNUM" property="notRecognisePnum" jdbcType="INTEGER" />
+    <result column="SCANNUM" property="scannum" jdbcType="INTEGER" />
+    <result column="OI_BASE_FEED_STATE" property="oiBaseFeedState" jdbcType="CHAR" />
+  </resultMap>
+  
+  <!-- 查询计划集合 -->
+  <select id="selectArrangeList" resultMap="BaseResultMap">
+  	SELECT TOP 50
+	  		ID, 
+	  		PLANNO, 
+  		    B.PRINTERID,
+	  		ARRANGEFLAG, 
+	  		ARRANGEUUID, 
+	  		BALUUID, 
+	  		BALUUID_ORIGINAL, 
+	  		BARRANGEDATE, 
+	  		PRODUCEDATE, 
+	    	CIGBRANDCODE, 
+	  		CIGBRAND, 
+	  		TRADETYPE, 
+	  		CLASSCODE, 
+	  		CLASSCODE_ORIGINAL, 
+	  		ARRANGENUM, 
+	  		DOWNNUM, 
+	    	PRINTNUM, 
+	  		APPLYNUM, 
+	  		INITTIME, 
+	  		STARTTIME, 
+	  		ENDTIME, 
+	  		PLANFLAG, 
+	  		PLANFINISHFLAG, 
+	  		SENDBACKFLAG, 
+	    	CONFIRMFLAG, 
+	  		ARRANGETYPE, 
+	  		WORKSHOPCODE, 
+	  		WORKSHOPNAME, 
+	  		CONTRACT_NO, 
+	  		SEND_CODE, 
+	  		SEND_NAME, 
+	    	IN_PNUM, 
+	  		NOT_RECOGNISE_PNUM, 
+	  		SCANNUM, 
+	  		OI_BASE_FEED_STATE
+  		FROM ARRANGE,(SELECT TOP 1 PRINTERID FROM PARAMETER ORDER BY INSTALLTIME DESC) B
+  		WHERE OI_BASE_FEED_STATE = 0
+  </select>
+  <!-- 根据id修改OI_BASE_FEED_STATE状态为1已发送 -->
+  <update id="updateArrangeBaseFeedStateListById" parameterType="java.util.List">
+  	  UPDATE ARRANGE SET OI_BASE_FEED_STATE = 1 WHERE
+  	<foreach collection="list" item="item" index="index" open=" " close=" " separator=" OR ">
+       ID = #{item.id}
+  	</foreach>
+  </update>
+</mapper>
